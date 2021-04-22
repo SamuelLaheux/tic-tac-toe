@@ -1,16 +1,19 @@
 import React from 'react';
 import '../index.css';
 import Board from './Board.js';
-import { calculateWinner } from '../utils';
+import { calculateWinner, lastElement } from '../utils';
 
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      squares: this.resetSquares(),
       xIsNext: true,
-      history: []
+      history: [this.resetSquares()]
     }
+  }
+
+  get squares() {
+    return lastElement(this.state.history)
   }
 
   get nextPlayer() {
@@ -18,7 +21,7 @@ export default class Game extends React.Component {
   }
 
   get winner() {
-    const winner = calculateWinner(this.state.squares)
+    const winner = calculateWinner(this.squares)
     if (winner) return `The winner is: ${winner}`;
     return null
   }
@@ -28,25 +31,26 @@ export default class Game extends React.Component {
     return Array(9).fill(null)
   }
 
-  handleUndoClick() {
+  onUndoClick() {
     if (this.state.history.length) {
-      const history = [ ...this.state.history ]
-      history.pop()
-      const squares = history.length > 0 ? history[history.length - 1] : this.resetSquares()
-      this.setState({ history, squares, xIsNext: !this.state.xIsNext })
+      let history = [ ...this.state.history ]
+      if (history.length > 1) {
+        history.pop()
+        this.setState({ history, xIsNext: !this.state.xIsNext })
+      }
     }
   }
 
 
-  handleClick(i) {
-    let squares = [ ...this.state.squares ]
+  onClick(i) {
     let history = [ ...this.state.history ]
+    let squares = [ ...this.squares ]
 
     // If a player has already won or if the cell is already filled, do nothing 
     if (!squares[i] && !this.winner) {
       squares[i] = this.state.xIsNext ? 'X' : 'O'
       history.push(squares)
-      this.setState({ squares, xIsNext: !this.state.xIsNext, history })
+      this.setState({ xIsNext: !this.state.xIsNext, history })
     }
   }
 
@@ -55,8 +59,8 @@ export default class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board 
-            squares={this.state.squares}
-            handleClick={(i) => this.handleClick(i)}
+            squares={this.squares}
+            onClick={(i) => this.onClick(i)}
           />
         </div>
         <div className="game-info">
@@ -64,7 +68,7 @@ export default class Game extends React.Component {
           <ol>{/* TODO */}</ol>
         </div>
         <div>
-          <button onClick={() => this.handleUndoClick()}>Undo</button>
+          <button onClick={() => this.onUndoClick()}>Undo</button>
         </div>
       </div>
     );

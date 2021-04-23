@@ -69,6 +69,13 @@ export default class Game extends React.Component {
   }
 
   render() {
+    let resetButton
+    let isUndoButtonDisabled = true
+    if (this.state.history.length > 1) {
+      resetButton = <button className="game-reset" onClick={() => this.onResetClick()}>Reset</button>
+      isUndoButtonDisabled = false
+    }
+
     return (
       <div className="game">
         <div className="game-board">
@@ -84,8 +91,8 @@ export default class Game extends React.Component {
           <ol>{/* TODO */}</ol>
         </div>
         <div>
-          <button onClick={() => this.onUndoClick()}>Undo</button>
-          <button className="game-reset" onClick={() => this.onResetClick()}>Reset</button>
+          <button disabled={isUndoButtonDisabled} onClick={() => this.onUndoClick()}>Undo</button>
+          { resetButton }
         </div>
         <div className="game-transition">
           <label htmlFor="transition-select">Choose a transition:</label>

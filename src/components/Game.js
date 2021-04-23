@@ -1,5 +1,5 @@
 import React from 'react';
-import '../index.css';
+import '../style/Game.css';
 import Board from './Board.js';
 import { calculateWinner, lastElement } from '../utils';
 
@@ -80,7 +80,7 @@ export default class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div className="status">{this.status}</div>
+          <div className="game-status">{this.status}</div>
           <ol>{/* TODO */}</ol>
         </div>
         <div>

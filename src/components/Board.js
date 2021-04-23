@@ -1,5 +1,5 @@
 import React from 'react';
-import '../index.css';
+import '../style/Board.css';
 import Square from './Square.js';
 
 

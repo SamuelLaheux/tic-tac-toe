@@ -21,9 +21,12 @@ export default class Game extends React.Component {
   }
 
   get winner() {
-    const winner = calculateWinner(this.squares)
-    if (winner) return `The winner is: ${winner}`;
-    return null
+    return calculateWinner(this.squares)
+  }
+
+  get status() {
+    if (this.winner) return `The winner is: ${this.winner.winner}`;
+    return this.nextPlayer
   }
 
 
@@ -64,11 +67,12 @@ export default class Game extends React.Component {
         <div className="game-board">
           <Board 
             squares={this.squares}
+            winningPosition={this.winner?.winningPosition}
             onClick={(i) => this.onClick(i)}
           />
         </div>
         <div className="game-info">
-          <div className="status">{this.winner ?? this.nextPlayer}</div>
+          <div className="status">{this.status}</div>
           <ol>{/* TODO */}</ol>
         </div>
         <div>

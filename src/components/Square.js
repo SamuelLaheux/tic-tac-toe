@@ -1,10 +1,19 @@
-export default function Square(props) {
-  return (
-    <button 
-      className="square"
-      onClick={() => props.onClick()}
-    >
-      { props.value }
-    </button>
-  );
+import React from 'react';
+
+export default class Square extends React.Component {
+  squareModifiers() {
+    if (this.props.winningPosition) return 'square--winning'
+    return ''
+  }
+  
+  render() {
+    return (
+      <button 
+        className={`square ${this.squareModifiers()}`}
+        onClick={() => this.props.onClick()}
+      >
+        { this.props.value }
+      </button>
+    );
+  }
 }

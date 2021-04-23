@@ -8,6 +8,7 @@ export default class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        winningPosition={this.props.winningPosition?.includes(i) ?? false}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />

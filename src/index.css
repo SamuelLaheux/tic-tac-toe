@@ -44,6 +44,21 @@ ol, ul {
   background: rgb(196, 185, 39)
 }
 
+.square--winning-rotate {
+  transition: all 1s ease;
+  transform: rotate(180deg);
+}
+
+.square--winning-translate {
+  transition: all 1s ease;
+  transform: translate(-4px, -4px);
+}
+
+.square--winning-scale {
+  transition: all 1s ease;
+  transform: scale(1.25);
+}
+
 .kbd-navigation .square:focus {
   background: #ddd;
 }
@@ -66,4 +81,8 @@ ol, ul {
 
 .game-reset:hover {
   background: rgb(233, 101, 101);
+}
+
+.game-transition {
+  margin-top: 16px;
 }

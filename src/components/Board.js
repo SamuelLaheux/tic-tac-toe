@@ -10,6 +10,7 @@ export default class Board extends React.Component {
       <Square
         winningPosition={this.props.winningPosition?.includes(i) ?? false}
         value={this.props.squares[i]}
+        transition={this.props.transition}
         onClick={() => this.props.onClick(i)}
       />
     );

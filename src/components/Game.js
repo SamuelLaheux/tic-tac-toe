@@ -6,9 +6,12 @@ import { calculateWinner, lastElement } from '../utils';
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
+    // bind once here, better than multiple times in render
+    this.onTransitionChange = this.onTransitionChange.bind(this);
     this.state = {
       xIsNext: true,
-      history: [this.resetSquares()]
+      history: [this.resetSquares()],
+      transition: ''
     }
   }
 
@@ -61,6 +64,10 @@ export default class Game extends React.Component {
     }
   }
 
+  onTransitionChange(event) {
+    this.setState({ [ event.target.name]: event.target.value })
+  }
+
   render() {
     return (
       <div className="game">
@@ -68,6 +75,7 @@ export default class Game extends React.Component {
           <Board 
             squares={this.squares}
             winningPosition={this.winner?.winningPosition}
+            transition={this.state.transition}
             onClick={(i) => this.onClick(i)}
           />
         </div>
@@ -78,6 +86,16 @@ export default class Game extends React.Component {
         <div>
           <button onClick={() => this.onUndoClick()}>Undo</button>
           <button className="game-reset" onClick={() => this.onResetClick()}>Reset</button>
+        </div>
+        <div className="game-transition">
+          <label htmlFor="transition-select">Choose a transition:</label>
+
+          <select name="transition" value={this.state.transition} id="transition-select" onChange={this.onTransitionChange}>
+            <option value="">--Please choose a winning transition--</option>
+            <option value="rotate">Rotate</option>
+            <option value="translate">Translate</option>
+            <option value="scale">Scale</option>
+          </select>
         </div>
       </div>
     );

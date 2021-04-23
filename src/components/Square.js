@@ -2,7 +2,17 @@ import React from 'react';
 
 export default class Square extends React.Component {
   squareModifiers() {
-    if (this.props.winningPosition) return 'square--winning'
+    if (this.props.winningPosition) {
+      const baseModifiers = 'square--winning'
+      let transitionModifiers = baseModifiers
+      if (this.props.transition) {
+        transitionModifiers += `-${this.props.transition}`
+
+        // Return baseModifers for color and transitionModifiers
+        return `${baseModifiers} ${transitionModifiers}`
+      }
+      return baseModifiers
+    }
     return ''
   }
   

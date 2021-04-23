@@ -32,6 +32,10 @@ ol, ul {
   width: 34px;
 }
 
+.square:hover {
+  background: rgb(161, 155, 155);
+}
+
 .square:focus {
   outline: none;
 }
@@ -47,4 +51,15 @@ ol, ul {
 
 .game-info {
   margin-top: 8px;
+}
+
+.game-reset {
+  padding: 5px 12px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background: #999
+}
+
+.game-reset:hover {
+  background: rgb(233, 101, 101);
 }

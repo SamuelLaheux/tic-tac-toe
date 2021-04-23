@@ -31,6 +31,10 @@ export default class Game extends React.Component {
     return Array(9).fill(null)
   }
 
+  onResetClick() {
+    this.setState({ history: [this.resetSquares()] })
+  }
+
   onUndoClick() {
     if (this.state.history.length) {
       let history = [ ...this.state.history ]
@@ -69,6 +73,7 @@ export default class Game extends React.Component {
         </div>
         <div>
           <button onClick={() => this.onUndoClick()}>Undo</button>
+          <button className="game-reset" onClick={() => this.onResetClick()}>Reset</button>
         </div>
       </div>
     );
